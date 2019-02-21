@@ -1,0 +1,12 @@
+
+python_project/\.idea/
+
+python_project/env/
+
+python_project/tests/\.idea/
+
+python_project/tests/__pycache__/
+
+python_project/tests/env/
+
+*.pyc

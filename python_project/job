@@ -1,0 +1,16 @@
+#!/bin/bash
+PATH="$PATH:/usr/bin/python3:/usr/bin/python3.5"
+export PYTHONPATH=/usr/lib/python3
+python3 -m venv env
+source env/bin/activate
+pip install -r requirements.txt
+
+docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -v $PWD/tests/Ali.apk:/root/tmp/Ali.apk -e DEVICE="Nexus 5" -e APPIUM=true -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 --name android-containernexus5-7 butomo1989/docker-android-x86-7.0
+
+sleep 1m 
+
+py.test tests/test_mobile.py
+
+docker rm -f $(docker ps -qa --filter="name=android-container-nexus5-7")
+
+deactivate
